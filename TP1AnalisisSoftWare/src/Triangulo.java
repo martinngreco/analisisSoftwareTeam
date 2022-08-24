@@ -45,15 +45,13 @@ public class Triangulo {
     public static void main(String[] args) {
         System.out.println("Ingrese los valores de un triángulo de uno a la vez.");
         System.out.println("Ingrese el primer valor");
-        Scanner sc1 = new Scanner(System.in);
-        int lado1 = sc1.nextInt();
+        Scanner sc = new Scanner(System.in);
+        int lado1 = sc.nextInt();
         System.out.println("Ingrese el segundo valor");
-        Scanner sc2 = new Scanner(System.in);
-        int lado2 = sc2.nextInt();
+        int lado2 = sc.nextInt();
         System.out.println("Ingrese el tercer valor");
-        Scanner sc3 = new Scanner(System.in);
-        int lado3 = sc3.nextInt();
-
+        int lado3 = sc.nextInt();
+        sc.close();
         Triangulo triangulo = new Triangulo(lado1,lado2,lado3);
 
         triangulo.decirTipo();
