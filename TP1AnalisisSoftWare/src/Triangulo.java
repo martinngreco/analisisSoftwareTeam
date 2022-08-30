@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //    Tp analisis de soft
@@ -10,50 +11,47 @@ import java.util.Scanner;
 //    Para esto necesito a,b ; b,c ; a,c como peor caso
 public class Triangulo {
 
-    private int lado1;
-    private int lado2;
-    private int lado3;
+    private ArrayList<Integer> lados;
 
-    public Triangulo(int i, int j, int k) {
-        lado1 = i;
-        lado2 = j;
-        lado3 = k;
+    public Triangulo() {
+        lados = new ArrayList<Integer>();
     }
 
-    private void decirTipo() {
-
-        if( lado1 == lado2){
-            //Iso o equi
-            if( lado1 == lado3)
-                System.out.println("El triángulo es Equilátero");
-            else
-                System.out.println("El triángulo es Isóceles");
+    public String queTrianguloSoy() {
+        if (esValido()) {
+            if (lados.get(0).equals(lados.get(1)) && lados.get(0).equals(lados.get(2))) {
+                return "Equilátero";
+            } else if (!lados.get(0).equals(lados.get(1)) && !lados.get(0).equals(lados.get(2)) && !lados.get(1).equals(lados.get(2))) {
+                return "Escaleno";
+            } else
+                return "Isósceles";
         }
-        else{
-            //Iso o escaleno
-            if( lado1 == lado3)
-                System.out.println("El triángulo es Isóceles");
-            else
-                if( lado2 == lado3)
-                    System.out.println("El triángulo es Isóceles");
-                else
-                    System.out.println("El triángulo es Escaleno");
-        }
+        return "No forma Triangulo";
+    }
 
+    public void ingresarLado(int lado) {
+        lados.add(lado);
+    }
+
+    public boolean esValido() {
+        return (lados.get(0) + lados.get(1) > lados.get(2)) &&
+                (lados.get(1) + lados.get(2) > lados.get(1)) &&
+                (lados.get(0) + lados.get(2) > lados.get(1));
     }
 
     public static void main(String[] args) {
         System.out.println("Ingrese los valores de un triángulo de uno a la vez.");
-        System.out.println("Ingrese el primer valor");
         Scanner sc = new Scanner(System.in);
-        int lado1 = sc.nextInt();
-        System.out.println("Ingrese el segundo valor");
-        int lado2 = sc.nextInt();
-        System.out.println("Ingrese el tercer valor");
-        int lado3 = sc.nextInt();
-        sc.close();
-        Triangulo triangulo = new Triangulo(lado1,lado2,lado3);
+        Triangulo triangulo = new Triangulo();
 
-        triangulo.decirTipo();
+        int medidaDelTriangulo;
+        for (int i = 1; i < 4; i++){
+            System.out.println("Ingrese la medida del lado numero: " + i + " del triangulo");
+            medidaDelTriangulo = sc.nextInt();
+            triangulo.ingresarLado(medidaDelTriangulo);
+        }
+
+        System.out.println("El triangulo es de tipo: " + triangulo.queTrianguloSoy());
+        sc.close();
     }
 }
